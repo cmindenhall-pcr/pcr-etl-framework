@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+.pytest_cache/
+pytest-cache-files-*/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Logs
+logs/*
+!logs/.gitkeep
+tmp/*
+!tmp/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Data
+data/
+*.csv
+*.parquet
+*.xlsx
+*.xls
+
+# SQL Server / misc outputs
+*.bak
+*.tmp
