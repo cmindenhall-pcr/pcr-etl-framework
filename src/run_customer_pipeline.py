@@ -783,7 +783,13 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "pipeline_name",
-        help="Pipeline name to run, or --all to run every configured pipeline.",
+        nargs="?",
+        help="Pipeline name to run. Use --all to run every configured pipeline.",
+    )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Run every configured pipeline.",
     )
     parser.add_argument(
         "--profile-only",
@@ -825,7 +831,9 @@ if __name__ == "__main__":
             raise ValueError(
                 "--profile-only, --raw-only, --staging-only, and --zen-only are mutually exclusive."
             )
-        if args.pipeline_name == "--all":
+        if args.all:
+            if args.pipeline_name:
+                raise ValueError("Use either a pipeline_name or --all, not both.")
             run_all_pipelines(
                 profile_only=args.profile_only,
                 raw_only=args.raw_only,
@@ -834,6 +842,8 @@ if __name__ == "__main__":
                 max_parallel_pipelines=args.max_parallel_pipelines,
             )
         else:
+            if not args.pipeline_name:
+                raise ValueError("A pipeline_name is required unless --all is supplied.")
             if args.max_parallel_pipelines != 1:
                 raise ValueError(
                     "--max-parallel-pipelines is only supported when pipeline_name is --all."

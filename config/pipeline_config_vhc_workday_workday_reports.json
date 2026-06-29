@@ -1,0 +1,105 @@
+{
+  "PCRSupplierInvoice041025": {
+    "source_table": "raw.PCRSupplierInvoice041025",
+    "preload_profile": {
+      "source_files": [
+        "D:\\RawData\\VHC_workday\\PCR - Supplier Invoice 041025.csv"
+      ],
+      "column_mappings": {
+        "Supplier_Invoice": "Supplier_Invoice",
+        "Invoice_Number": "Invoice_Number",
+        "Company": "Company",
+        "Gapless_Document_Number": "Gapless_Document_Number",
+        "Down_Payment_Invoice": "Down_Payment_Invoice",
+        "Intercompany": "Intercompany",
+        "Direct_Intercompany": "Direct_Intercompany",
+        "Tax_Only": "Tax_Only",
+        "Status": "Status",
+        "Cancel_Date": "Cancel_Date",
+        "Supplier": "Supplier",
+        "Supplier_s_Invoice_Number": "Supplier_s_Invoice_Number",
+        "Invoice_Date": "Invoice_Date",
+        "Memo": "Memo",
+        "Discount_Date": "Discount_Date",
+        "Due_Date": "Due_Date",
+        "Invoice_Amount": "Invoice_Amount",
+        "Balance_Due": "Balance_Due",
+        "Currency": "Currency",
+        "On_Hold": "On_Hold",
+        "Adjustment": "Adjustment",
+        "Adjustment_Reason": "Adjustment_Reason",
+        "Procurement_Related": "Procurement_Related",
+        "Purchase_Orders": "Purchase_Orders",
+        "External_PO_Number": "External_PO_Number",
+        "Created_On": "Created_On",
+        "Invoice_Created_By": "Invoice_Created_By"
+      },
+      "max_malformed_rows": 0,
+      "has_header": true,
+      "delimiter": ",",
+      "canonicalize_headers": true,
+      "header_row_number": 26
+    },
+    "staging_table": "stg.PCRSupplierInvoice041025",
+    "target_table": "zen.PCRSupplierInvoice041025"
+  },
+  "PCRSupplierPayments041025": {
+    "source_table": "raw.PCRSupplierPayments041025",
+    "preload_profile": {
+      "source_files": [
+        "D:\\RawData\\VHC_workday\\PCR - Supplier Payments 041025.csv"
+      ],
+      "column_mappings": {
+        "Transaction_Reference": "Transaction_Reference",
+        "Payment_Date": "Payment_Date",
+        "Payment_Status": "Payment_Status",
+        "Supplier": "Supplier",
+        "Payment_Type": "Payment_Type",
+        "Payment_Amount": "Payment_Amount",
+        "Supplier_Invoice": "Supplier_Invoice",
+        "Supplier_s_Invoice_Number": "Supplier_s_Invoice_Number",
+        "Invoice_Date": "Invoice_Date",
+        "Invoice_Amount": "Invoice_Amount"
+      },
+      "max_malformed_rows": 0,
+      "has_header": true,
+      "delimiter": ",",
+      "canonicalize_headers": true,
+      "header_row_number": 8
+    },
+    "staging_table": "stg.PCRSupplierPayments041025",
+    "target_table": "zen.PCRSupplierPayments041025"
+  },
+  "PCRSuppliersWD": {
+    "source_table": "raw.PCRSuppliersWD",
+    "preload_profile": {
+      "source_files": [
+        "D:\\RawData\\VHC_workday\\PCR Suppliers WD.csv"
+      ],
+      "column_mappings": {
+        "Supplier": "Supplier",
+        "Supplier_Name": "Supplier_Name",
+        "Supplier_ID": "Supplier_ID",
+        "Supplier_Status": "Supplier_Status",
+        "Supplier_Category": "Supplier_Category",
+        "Supplier_Group": "Supplier_Group",
+        "Customer_Account_Number": "Customer_Account_Number",
+        "DUNS_Number": "DUNS_Number",
+        "Alternate_Name": "Alternate_Name",
+        "Supplier_Contacts": "Supplier_Contacts",
+        "Parent_Supplier": "Parent_Supplier",
+        "IRS_1099_Supplier": "IRS_1099_Supplier",
+        "Remit_To_Address": "Remit_To_Address",
+        "Worktag_Only": "Worktag_Only",
+        "Screening_Status": "Screening_Status"
+      },
+      "max_malformed_rows": 0,
+      "has_header": true,
+      "delimiter": ",",
+      "canonicalize_headers": true,
+      "header_row_number": 16
+    },
+    "staging_table": "stg.PCRSuppliersWD",
+    "target_table": "zen.PCRSuppliersWD"
+  }
+}

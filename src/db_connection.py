@@ -10,7 +10,9 @@ logger = get_logger()
 def get_connection_settings() -> dict[str, str | None]:
     load_dotenv(dotenv_path=".env", override=False)
     return {
+        "driver": os.getenv("SQL_DRIVER", "ODBC Driver 17 for SQL Server"),
         "server": os.getenv("SQL_SERVER"),
+        "port": os.getenv("SQL_PORT"),
         "database": os.getenv("SQL_DATABASE"),
         "username": os.getenv("SQL_USERNAME"),
         "password": os.getenv("SQL_PASSWORD"),
@@ -27,19 +29,22 @@ def get_connection(autocommit: bool = False):
         ) from e
 
     settings = get_connection_settings()
+    driver = settings["driver"]
     server = settings["server"]
+    port = settings["port"]
     database = settings["database"]
     username = settings["username"]
     password = settings["password"]
     retry_attempts = int(os.getenv("SQL_CONNECT_RETRY_ATTEMPTS", "60"))
     retry_delay_seconds = float(os.getenv("SQL_CONNECT_RETRY_DELAY_SECONDS", "3"))
     retry_started = None
+    server_endpoint = f"{server},{port}" if server and port else server
 
     # ✅ Use SQL auth if username/password provided, else Windows auth
     if username and password:
         conn_str = (
-            "DRIVER={ODBC Driver 17 for SQL Server};"
-            f"SERVER={server};"
+            f"DRIVER={{{driver}}};"
+            f"SERVER={server_endpoint};"
             f"DATABASE={database};"
             f"UID={username};"
             f"PWD={password};"
@@ -49,8 +54,8 @@ def get_connection(autocommit: bool = False):
         )
     else:
         conn_str = (
-            "DRIVER={ODBC Driver 17 for SQL Server};"
-            f"SERVER={server};"
+            f"DRIVER={{{driver}}};"
+            f"SERVER={server_endpoint};"
             f"DATABASE={database};"
             "Trusted_Connection=yes;"
             "Encrypt=no;"
