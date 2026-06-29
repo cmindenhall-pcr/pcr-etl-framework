@@ -4,6 +4,18 @@ Local-first Python + SQL Server ETL framework for healthcare ERP data.
 
 The framework profiles raw ERP exports, loads them into SQL Server, normalizes identifiers and datatypes, handles schema drift when needed, preserves audit telemetry, and promotes trusted tables through a layered model.
 
+## Documentation Map
+
+Start here:
+
+- [Operator Runbook](docs/operator_runbook.md): how to run profile, raw, staging, and zen loads
+- [Framework Architecture](docs/framework_architecture.md): layer model and module responsibilities
+- [Pipeline Config Guide](docs/pipeline_config_guide.md): how to author pipeline configs
+- [Workday Report Exports](docs/workday_report_exports.md): handling report preambles and header offsets
+- [Troubleshooting](docs/troubleshooting.md): common failures and fixes
+- [Data Typing Doctrine](docs/data_typing_doctrine.md): datatype recommendation and approval rules
+- [ERP File Onboarding Template](docs/erp_file_onboarding_template.md): documentation template for new files
+
 ## Current State
 
 This project is an ERP-agnostic loader for healthcare source systems.
@@ -115,16 +127,28 @@ $env:PIPELINE_CONFIG_PATH='config\pipeline_config_client_erp_raw.json'
 $env:SQL_DATABASE='Client_erp'
 ```
 
-Load staging from prepared lower layers:
+Run preload evaluation:
 
 ```powershell
-.\.venv\Scripts\python.exe -c "from src.run_customer_pipeline import run_all_pipelines; run_all_pipelines(staging_only=True)"
+.\.venv\Scripts\python.exe -m src.run_customer_pipeline --all --profile-only
 ```
 
-Load zen from staging:
+Load raw:
 
 ```powershell
-.\.venv\Scripts\python.exe -c "from src.run_customer_pipeline import run_all_pipelines; run_all_pipelines(zen_only=True)"
+.\.venv\Scripts\python.exe -m src.run_customer_pipeline --all --raw-only
+```
+
+Load staging:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.run_customer_pipeline --all --staging-only
+```
+
+Load zen:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.run_customer_pipeline --all --zen-only
 ```
 
 Operational scripts in `scripts/` provide additional entry points for preflight/profile/load workflows.
